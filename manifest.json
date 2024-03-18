@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  
+  "name": "LinkedIn Helper",
+  "version": "1.0",
+  "description": "Turns all websites black and white.",
+  "permissions": [
+    "activeTab",
+    "webRequest",
+    "storage",
+    "downloads"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "tharusha-linkedIn-helper@mozillia.org"
+    }
+  },
+  
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
