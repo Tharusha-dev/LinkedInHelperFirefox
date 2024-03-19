@@ -1,5 +1,3 @@
-
-
 document.addEventListener('DOMContentLoaded', function() {
 
   let firstNameCheckBox = document.getElementById("firstNameCheckbox")
@@ -106,7 +104,7 @@ document.addEventListener('DOMContentLoaded', function() {
       browser.storage.local.set({'numOfElements':numberOfElementsField.value})
 
       browser.runtime.sendMessage({greeting: "hello"}, function(response) {
-      console.log(response.farewell);
+      // console.log(response.farewell);
     });
     });
   

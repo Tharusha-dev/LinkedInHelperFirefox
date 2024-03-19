@@ -2,7 +2,7 @@ const httpReqUrlPattern = 'https://www.linkedin.com/voyager/api/relationships/da
 const regexPatternStart = '/start=(\d+)/'
 const regexPatternCount = '/count=(\d+)/'
 
-browser.webRequest.onBeforeRequest.addListener(
+browser.runtime.onMessage.addListener(
 
     function (request, sender, sendResponse) {
         sendResponse("got")
@@ -11,17 +11,16 @@ browser.webRequest.onBeforeRequest.addListener(
             sendResponse({ farewell: "goodbye" });
             console.log("hi from background")
 
-            // browser.webRequest.onBeforeSendHeaders.addListener(
-            //     sendUrl,
-            //     { urls: [httpReqUrlPattern] },
-            //     ["requestHeaders"]
-
-            // );
+    
 
             browser.webRequest.onBeforeRequest.addListener(
                 sendUrl,
-                { urls: [httpReqUrlPattern], extraInfoSpecs: ["blocking"] } // Add blocking if needed
-              );n
+                { urls: [httpReqUrlPattern], } ,// Add blocking if needed
+                ["requestHeaders","blocking"]
+              );
+
+              
+            
         }
         return true;
     });
@@ -37,6 +36,7 @@ function updateURLParameters(url, numOfCon) {
 
 
 function sendUrl(reqDetails) {
+    console.log("sendURL hi")
     console.log(`Loading: ${reqDetails.url}`)
 
     if (reqDetails != undefined) {
@@ -66,28 +66,28 @@ function sendUrl(reqDetails) {
 
 
 
-            fetch(newUrl, {
-                method: reqMethod,
-                headers: fetchHeaders,
-            }).then(response => {
+            // fetch(newUrl, {
+            //     method: reqMethod,
+            //     headers: fetchHeaders,
+            // }).then(response => {
                 
-                response.json().then((data) => {
-                    let connectionsArray = data['included'].splice(0, parseInt(val['numOfElements']))
-                    console.log(connectionsArray)
-                    let csvText = exportToCSV(connectionsArray)
-                    console.log(csvText)
-                    browser.storage.local.set({ 'csvText': csvText })
-                    browser.runtime.sendMessage({ greeting: "showCSVdownload" }, function (response) {
+            //     response.json().then((data) => {
+            //         let connectionsArray = data['included'].splice(0, parseInt(val['numOfElements']))
+            //         console.log(connectionsArray)
+            //         let csvText = exportToCSV(connectionsArray)
+            //         console.log(csvText)
+            //         browser.storage.local.set({ 'csvText': csvText })
+            //         browser.runtime.sendMessage({ greeting: "showCSVdownload" }, function (response) {
                    
-                    });
+            //         });
 
 
-                })
-            })
-                .catch(error => {
+            //     })
+            // })
+            //     .catch(error => {
 
-                    console.error(error);
-                });
+            //         console.error(error);
+            //     });
 
         })
 

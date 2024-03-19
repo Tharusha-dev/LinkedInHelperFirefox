@@ -8,7 +8,10 @@
     "activeTab",
     "webRequest",
     "storage",
-    "downloads"
+    "downloads",
+    "webRequestBlocking",
+    "https://www.linkedin.com/voyager/api/relationships/dash/*",
+    "<all_urls>"
   ],
   "background": {
     "scripts": ["background.js"]
@@ -23,3 +26,6 @@
     "default_popup": "popup.html"
   }
 }
+
+
+
